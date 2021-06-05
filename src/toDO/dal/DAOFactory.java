@@ -1,7 +1,7 @@
-package dal;
+package toDO.dal;
 
-import dal.jdbc.TodoDAO;
-import dal.jdbc.TodoDAOJdbcImpl;
+import toDO.dal.jdbc.TodoDAO;
+import toDO.dal.jdbc.TodoDAOJdbcImpl;
 
 /**
  * Classe DAOFactory

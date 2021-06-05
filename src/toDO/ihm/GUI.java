@@ -1,8 +1,7 @@
-package ihm;
+package toDO.ihm;
 
 import javax.swing.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Création de l'affichage

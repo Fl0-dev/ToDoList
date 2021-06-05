@@ -1,4 +1,4 @@
-package bll;
+package toDO.bll;
 
 public class BLLException extends Exception{
     public BLLException(String message){

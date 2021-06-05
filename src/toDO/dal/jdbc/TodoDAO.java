@@ -1,8 +1,8 @@
-package dal.jdbc;
+package toDO.dal.jdbc;
 
-import bll.BLLException;
-import bo.DALException;
-import bo.Todo;
+import toDO.bll.BLLException;
+import toDO.bo.DALException;
+import toDO.bo.Todo;
 
 import java.util.List;
 

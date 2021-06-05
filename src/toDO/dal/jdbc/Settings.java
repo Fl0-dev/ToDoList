@@ -1,4 +1,4 @@
-package dal.jdbc;
+package toDO.dal.jdbc;
 
 import java.util.Properties;
 

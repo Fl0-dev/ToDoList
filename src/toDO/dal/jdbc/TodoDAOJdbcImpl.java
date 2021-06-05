@@ -1,7 +1,7 @@
-package dal.jdbc;
+package toDO.dal.jdbc;
 
-import bo.DALException;
-import bo.Todo;
+import toDO.bo.DALException;
+import toDO.bo.Todo;
 
 import java.sql.*;
 import java.time.LocalDate;
