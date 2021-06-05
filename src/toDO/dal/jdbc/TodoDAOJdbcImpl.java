@@ -15,9 +15,6 @@ public class TodoDAOJdbcImpl implements TodoDAO{
     //constante du chemin de la DB (dans le fichier settings
     private final String URL = Settings.getPropriete("url");
 
-    //Constante pour la requête SQL
-    private final String SQLINSERT = "INSERT INTO todo_table (dateDuJour, texte)VALUES (date(),?);";
-
     /**
      * Permet de créer une liste de tout les todo en DB
      * @return une liste de todo
@@ -42,7 +39,7 @@ public class TodoDAOJdbcImpl implements TodoDAO{
                 //récupération dans des variables des éléments de la ligne
                 int id = rs.getInt("id");
                 //LocaDate Date.valuesof(todo.date)
-                LocalDate date = LocalDate.parse(rs.getString("dateDuJour"));
+                LocalDate date = rs.getDate("dateDuJour").toLocalDate();
                 String texte = rs.getString("texte");
                 //création de l'instance Todo
                 todo = new Todo(id,date,texte);
@@ -63,11 +60,16 @@ public class TodoDAOJdbcImpl implements TodoDAO{
      */
     @Override
     public void insert(Todo todo) throws DALException{
+        //Constante pour la requête SQL
+        String SQLINSERT = "INSERT INTO todo_table (dateDuJour, texte)VALUES (?,?);";
+        //date du jour
+        LocalDate dateJour = LocalDate.now();
         //Ouverture de la connexion vers la DB
         try (Connection connection = JdbcTools.recupConnection();
-            PreparedStatement requete = connection.prepareStatement(SQLINSERT)){
-            LocalDate dateJour = LocalDate.now();
+             PreparedStatement requete = connection.prepareStatement(SQLINSERT)){
+
             //Initialisation de la requête SQLINSERT
+            requete.setDate(1,Date.valueOf(dateJour));
             requete.setString(2,todo.getTexte());
             //exécution
             requete.executeUpdate();

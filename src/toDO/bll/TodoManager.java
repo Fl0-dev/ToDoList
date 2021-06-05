@@ -32,7 +32,7 @@ public class TodoManager {
     /**
      *récupère la liste de tous les todo
      * @return la liste des todo
-     * @throws BLLException si souci SQL
+     * @throws BLLException si souci SQL avec la méthode selectAll()
      */
     public List<Todo> todos() throws BLLException {
         List<Todo> list;
@@ -45,5 +45,18 @@ public class TodoManager {
         return list;
     }
 
-
+    /**
+     * permet d'ajouter dans la DB un todo avec
+     * @param todoTexte String donnée par l'user
+     * @throws BLLException si souci SQL avec la méthode insert()
+     */
+    public void ajouterTodo (String todoTexte) throws BLLException{
+        TodoDAO todoDAO = DAOFactory.getTodoDAO();
+        Todo todo = new Todo(todoTexte);
+        try {
+            todoDAO.insert(todo);
+        } catch (DALException e) {
+            throw new BLLException(e.getMessage());
+        }
+    }
 }
