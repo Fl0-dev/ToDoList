@@ -2,6 +2,11 @@ package toDO.bo;
 
 import java.time.LocalDate;
 
+/**
+ * classe POJO de Todo
+ * @author Florian
+ * @date 06/06/2021
+ */
 public class Todo {
     private int id;
     private LocalDate date;

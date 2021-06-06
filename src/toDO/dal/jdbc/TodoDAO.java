@@ -1,7 +1,6 @@
 package toDO.dal.jdbc;
 
 import toDO.bll.BLLException;
-import toDO.bo.DALException;
 import toDO.bo.Todo;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package toDO.bll;
 
-import toDO.bo.DALException;
+import toDO.dal.jdbc.DALException;
 import toDO.bo.Todo;
 import toDO.dal.DAOFactory;
 import toDO.dal.jdbc.TodoDAO;
@@ -10,12 +10,14 @@ import java.util.List;
 /**
  * Classe de la BLL qui contient les méthodes
  * pour gérer la DAO
+ * @author Florian
+ * @date 06/06/2021
  */
 public class TodoManager {
 
     //création d'une instance de TodoManager (instance de classe)
     private static TodoManager instance;
-    TodoDAO todoDAO;
+
 
     //constructeur Vide privé
     private TodoManager(){
@@ -53,7 +55,11 @@ public class TodoManager {
     public void ajouterTodo (String todoTexte) throws BLLException{
         TodoDAO todoDAO = DAOFactory.getTodoDAO();
         Todo todo = new Todo(todoTexte);
+
         try {
+            if (todos().size()>=5){
+                throw new BLLException("Fait déjà ça et on reparle!");
+            }
             todoDAO.insert(todo);
         } catch (DALException e) {
             throw new BLLException(e.getMessage());

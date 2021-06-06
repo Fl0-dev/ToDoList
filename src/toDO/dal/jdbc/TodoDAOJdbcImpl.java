@@ -1,6 +1,5 @@
 package toDO.dal.jdbc;
 
-import toDO.bo.DALException;
 import toDO.bo.Todo;
 
 import java.sql.*;
@@ -9,16 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe de la DAL qui gère la relation avec la DB PAPETERIE
+ * Classe de la DAL qui gère la relation avec la DB Todo_table
+ * @author Florian
+ * @date 06/06/2021
  */
 public class TodoDAOJdbcImpl implements TodoDAO{
-    //constante du chemin de la DB (dans le fichier settings
-    private final String URL = Settings.getPropriete("url");
 
     /**
      * Permet de créer une liste de tout les todo en DB
      * @return une liste de todo
-     * @throws DALException
+     * @throws DALException si souci
      */
     @Override
     public List<Todo> selectAll()throws DALException{
@@ -55,8 +54,8 @@ public class TodoDAOJdbcImpl implements TodoDAO{
 
     /**
      * Permet d'ajouter un todo dans la DB
-     * @param todo
-     * @throws DALException
+     * @param todo à ajouter
+     * @throws DALException si souci
      */
     @Override
     public void insert(Todo todo) throws DALException{

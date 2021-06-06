@@ -14,11 +14,10 @@ import java.util.List;
 
 /**
  * Création de l'affichage
+ * @author Florian
+ * @date 06/06/2021
  */
-public class GUI extends JFrame { //TODO
-
-    //création des attributs
-    private List<Todo> listDesTodo;
+public class GUI extends JFrame {
 
     //création des éléments graphiques
     private JPanel panneauPrincipal;
@@ -54,11 +53,21 @@ public class GUI extends JFrame { //TODO
                     //Appel du manager
                     TodoManager tm = TodoManager.getInstance();
                     try {
+                        //ajout d'un nouvel todo dans la DB
                         tm.ajouterTodo(getTodoTexte().getText());
+                        //ajout dans le panneau des todos
                         panneauTodos.add(new JLabel(getTodoTexte().getText()));
+                        //remise à 0 du JtextField
+                        todoTexte.setText(null);
+                        //rechargement du panneau de todos
+                        panneauTodos.revalidate();
+                        //changement de l'affichage du JLabel
+                        getLabelAffichage().setForeground(new Color(0x6FD736));
+                        getLabelAffichage().setText("Le todo a bien été ajouté!");
                     } catch (BLLException bllException) {
-                        getLabelAffichage().setText("Souci lors de l'ajout. Ajout Annulé !");
                         getLabelAffichage().setForeground(new Color (0xDE1717));
+                        getLabelAffichage().setText(bllException.getMessage());
+
                     }
 
                 }
@@ -78,6 +87,8 @@ public class GUI extends JFrame { //TODO
         if (panneauPrincipal == null) {
             // création du panneau principal
             panneauPrincipal = new JPanel();
+            //change la couleur prédéfinie
+            //panneauPrincipal.setBackground(Color.BLACK);
             //mise en place de la grille de placement
             panneauPrincipal.setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
@@ -137,7 +148,8 @@ public class GUI extends JFrame { //TODO
         //Appel de TodoManager
         TodoManager tm = TodoManager.getInstance();
         //Création d'une liste de tous les todo
-        listDesTodo = new ArrayList<>();
+        //création des attributs
+        List<Todo> listDesTodo = new ArrayList<>();
         try {
             listDesTodo = tm.todos();
         } catch (BLLException e) {
@@ -152,12 +164,14 @@ public class GUI extends JFrame { //TODO
             }
         //si aucun todo dans la DB
         }else{
-            getLabelAffichage().setText("Aucun Todo dans la DB");
             //couleur orange
             getLabelAffichage().setForeground(new Color(0xFFE76D10, true));
+            getLabelAffichage().setText("Aucun Todo dans la DB");
+
         }
 
         //permet l'affichage de l'écran
+
         this.setVisible(true);
     }
 
@@ -167,13 +181,7 @@ public class GUI extends JFrame { //TODO
     public static void main(String[] args) {
         //création d'un écran principal
         SwingUtilities.invokeLater(
-                //on pourrait faire une lambda (peu importe le nom lance)
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        JFrame app =new GUI();
-                    }
-                }
+                () -> new GUI()
         );
     }
 }

@@ -1,4 +1,4 @@
-package toDO.bo;
+package toDO.dal.jdbc;
 
 public class DALException extends Exception{
     public DALException(String message){
